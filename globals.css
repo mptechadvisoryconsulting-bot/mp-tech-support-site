@@ -1,0 +1,103 @@
+const DEFAULT_FORM_URL =
+  'https://docs.google.com/forms/d/14n9F31A4VvkCQ-pDCredXkQeXV3z45VTiIMhBCkA5Dk/viewform?embedded=true';
+
+function getFormUrl() {
+  return process.env.NEXT_PUBLIC_FORM_URL || DEFAULT_FORM_URL;
+}
+
+function getOpenFormUrl(formUrl: string) {
+  return formUrl.replace('?embedded=true', '').replace('&embedded=true', '');
+}
+
+export default function Home() {
+  const formUrl = getFormUrl();
+  const openFormUrl = getOpenFormUrl(formUrl);
+
+  return (
+    <main>
+      <section className="hero">
+        <nav className="nav">
+          <div className="brand">
+            <div className="logo">MP</div>
+            <div>
+              <p className="eyebrow">MP Technology Consulting</p>
+              <h1>Client Support Request</h1>
+            </div>
+          </div>
+          <a className="navButton" href="#support-form">Fill Out Form</a>
+        </nav>
+
+        <div className="heroGrid">
+          <div className="heroCopy">
+            <p className="badge">Technology Assessment • Advisory • Support</p>
+            <h2>Tell us what you need help with.</h2>
+            <p>
+              Use this secure request page to submit your business technology concerns,
+              support needs, workflow issues, or consulting request. Our team will review
+              your details and follow up with the next steps.
+            </p>
+            <div className="actions">
+              <a className="primary" href="#support-form">Start Request</a>
+              <a className="secondary" href={openFormUrl} target="_blank" rel="noreferrer">
+                Open Form in New Tab
+              </a>
+            </div>
+          </div>
+
+          <div className="infoCard">
+            <h3>What to include</h3>
+            <ul>
+              <li>Company and contact information</li>
+              <li>Technology issue or business need</li>
+              <li>Preferred timeline and urgency</li>
+              <li>Systems, tools, or workflows involved</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="details">
+        <div className="detailCard">
+          <h3>1. Submit the form</h3>
+          <p>Complete the support request with as much detail as possible.</p>
+        </div>
+        <div className="detailCard">
+          <h3>2. We review it</h3>
+          <p>MP Technology Consulting reviews the request and identifies next steps.</p>
+        </div>
+        <div className="detailCard">
+          <h3>3. We follow up</h3>
+          <p>You receive a response for assessment, support, or consultation scheduling.</p>
+        </div>
+      </section>
+
+      <section id="support-form" className="formSection">
+        <div className="sectionHeader">
+          <p className="eyebrow">Support Intake</p>
+          <h2>Client Assessment Request Form</h2>
+          <p>
+            Complete the embedded form below. If it does not load, use the button to open it
+            directly in a new browser tab.
+          </p>
+          <a className="secondary dark" href={openFormUrl} target="_blank" rel="noreferrer">
+            Open Form Directly
+          </a>
+        </div>
+
+        <div className="iframeWrap">
+          <iframe
+            src={formUrl}
+            title="MP Technology Consulting Client Assessment Request Form"
+            loading="lazy"
+          >
+            Loading form…
+          </iframe>
+        </div>
+      </section>
+
+      <footer>
+        <p>© {new Date().getFullYear()} MP Technology Consulting. All rights reserved.</p>
+      </footer>
+    </main>
+  );
+}
